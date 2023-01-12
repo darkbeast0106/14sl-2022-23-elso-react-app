@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import BejegyzesKomponens from "./Bejegyzes";
 
 function App() {
   const [bejegyzesek, setBejegyzesek] = useState([]);
@@ -9,20 +10,19 @@ function App() {
   const bejegyzesHozzaadasa = () => {
     const bejegyzes = {
       cim: cim,
-      tartalom: tartalom
+      tartalom: tartalom,
     };
     const ujBejegyzesek = [];
-    bejegyzesek.forEach(bejegyzes => ujBejegyzesek.push(bejegyzes))
+    bejegyzesek.forEach((bejegyzes) => ujBejegyzesek.push(bejegyzes));
     ujBejegyzesek.push(bejegyzes);
     setBejegyzesek(ujBejegyzesek);
   };
 
   const bejegyzesLista = [];
-  bejegyzesek.forEach(bejegyzes => {
-    bejegyzesLista.push(<div>
-      <h4>{bejegyzes.cim}</h4>
-      <p>{bejegyzes.tartalom}</p>
-    </div>)
+  bejegyzesek.forEach((bejegyzes) => {
+    bejegyzesLista.push(
+      <BejegyzesKomponens cim={bejegyzes.cim} tartalom={bejegyzes.tartalom} />
+    );
   });
 
   return (
@@ -44,12 +44,12 @@ function App() {
             rows="10"
             placeholder="Tartalom"
             value={tartalom}
-            onInput={e => setTartalom(e.target.value)}
+            onInput={(e) => setTartalom(e.target.value)}
           ></textarea>
         </div>
         <button onClick={() => bejegyzesHozzaadasa()}>Felvesz</button>
       </section>
-      <section>{ bejegyzesLista }</section>
+      <section>{bejegyzesLista}</section>
     </div>
   );
 }
